@@ -403,103 +403,16 @@ namespace offsets {
         inline constexpr uintptr_t ViewMatrix = 0x150;
     }
 
+    namespace Workspace {
+        inline constexpr uintptr_t CurrentCamera = 0x4A0;
+        inline constexpr uintptr_t ReadOnlyGravity = 0x9B0;
+        inline constexpr uintptr_t World = 0x3F8;
+    }
+
     namespace World {
         inline constexpr uintptr_t Gravity = 0x210;
         inline constexpr uintptr_t Primitives = 0x288;
         inline constexpr uintptr_t WorldSteps = 0x680;
-        inline constexpr uintptr_t AirProperties = 0x218;
-        inline constexpr uintptr_t FallenPartsDestroyHeight = 0x208;
-        inline constexpr uintptr_t worldStepsPerSec = 0x680;
-    }
-
-    namespace Camera {
-        inline constexpr uintptr_t CameraSubject = 0xE8;
-        inline constexpr uintptr_t CameraType = 0x158;
-    }
-
-    namespace Humanoid {
-        inline constexpr uintptr_t DisplayName = 0xD0;
-        inline constexpr uintptr_t HumanoidState = 0x8A0;
-        inline constexpr uintptr_t HumanoidStateID = 0x20;
-        inline constexpr uintptr_t Jump = 0x1DA;
-        inline constexpr uintptr_t MoveDirection = 0x158;
-        inline constexpr uintptr_t PlatformStand = 0x1DC;
-        inline constexpr uintptr_t Walkspeed = 0x1D0;
-        inline constexpr uintptr_t WalkspeedCheck = 0x3BC;
-    }
-
-    namespace Instance {
-        inline constexpr uintptr_t AttributeContainer = 0x48;
-        inline constexpr uintptr_t AttributeList = 0x18;
-        inline constexpr uintptr_t AttributeToNext = 0x58;
-        inline constexpr uintptr_t AttributeToValue = 0x18;
-    }
-
-    namespace Lighting {
-        inline constexpr uintptr_t GeographicLatitude = 0x180;
-        inline constexpr uintptr_t GlobalShadows = 0x150;
-        inline constexpr uintptr_t GradientBottom = 0x184;
-        inline constexpr uintptr_t GradientTop = 0x140;
-        inline constexpr uintptr_t LightColor = 0x14C;
-        inline constexpr uintptr_t LightDirection = 0x158;
-    }
-
-    namespace Model {
-        inline constexpr uintptr_t PrimaryPart = 0x278;
-    }
-
-    namespace Player {
-        inline constexpr uintptr_t LocalPlayer = 0x130;
-        inline constexpr uintptr_t MaxZoomDistance = 0x358;
-        inline constexpr uintptr_t MinZoomDistance = 0x354;
-        inline constexpr uintptr_t ModelInstance = 0x298;
-    }
-
-    namespace Primitive {
-        inline constexpr uintptr_t Flags = 0x1B6;
-    }
-
-    namespace Sound {
-        inline constexpr uintptr_t Looped = 0x155;
-        inline constexpr uintptr_t PlaybackSpeed = 0x134;
-        inline constexpr uintptr_t RollOffMaxDistance = 0x138;
-        inline constexpr uintptr_t RollOffMinDistance = 0x13C;
-        inline constexpr uintptr_t SoundId = 0xE0;
-        inline constexpr uintptr_t Volume = 0x148;
-    }
-
-    namespace SurfaceAppearance {
-        inline constexpr uintptr_t AlphaMode = 0x2A0;
-        inline constexpr uintptr_t ColorMap = 0xE0;
-        inline constexpr uintptr_t EmissiveMaskContent = 0x110;
-        inline constexpr uintptr_t EmissiveStrength = 0x2A4;
-        inline constexpr uintptr_t MetalnessMap = 0x140;
-        inline constexpr uintptr_t NormalMap = 0x170;
-        inline constexpr uintptr_t RoughnessMap = 0x1A0;
-    }
-
-    namespace TaskScheduler {
-        inline constexpr uintptr_t MaxFPS = 0xB0;
-    }
-
-    namespace Team {
-        inline constexpr uintptr_t BrickColor = 0xB8;
-    }
-
-    namespace Tool {
-        inline constexpr uintptr_t TextureId = 0x368;
-    }
-
-    namespace UnionOperation {
-        inline constexpr uintptr_t AssetId = 0x2F0;
-    }
-
-    namespace Workspace {
-        inline constexpr uintptr_t CurrentCamera = 0x4A0;
-        inline constexpr uintptr_t DistributedGameTime = 0x4C8;
-        inline constexpr uintptr_t Raycast = 0x15BFAE9;
-        inline constexpr uintptr_t ReadOnlyGravity = 0x9B0;
-        inline constexpr uintptr_t World = 0x3F8;
     }
 
 } // namespace offsets
